@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📙 Login form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            width: 80%;
+            height: auto;
+            margin: 25px auto;
+            border: 1px solid black;
+        }
+        
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+        
+        img {
+            width: 30%;
+            border-radius: 50%;
+        }
+        
+        .container .container_input {
+            padding: 16px;
+        }
+        /* Full-width input fields */
+        
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+        }
+        /* Set a style for all buttons */
+        
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        button:hover {
+            opacity: 0.8;
+        }
+        
+        .container_home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: -40rem 0 0 5rem;
+        }
+        
+        .container_home .txt {
+            padding: 1px 0;
+        }
+        
+        .container_home .txt h3,
+        p {
+            padding: 6px 0;
+        }
+        
+        .container_home button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 6px 10px;
+            margin: 6px 0;
+            border: none;
+            cursor: pointer;
+            width: 10%;
+        }
+        
+        .container_home button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="#">
+        <div class="container" id="login">
+            <div class="imgcontainer"> <img src="./Assets/Images/img_avatar.png" alt=""></div>
+            <div class="container_input">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" id="email" placeholder="Enter Username" name="uname" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" id="password" placeholder="Enter Password" name="psw" required>
+                <button type="submit" id="btn_login">Login</button>
+                <label>
+            </div>
+        </div>
+    </form>
+        <div class="container_home" id="home">
+            <div class="txt">
+                <h3>Welcome to Home Page</h3>
+                <p>You will be automatically logged out</p>
+                <p>Keep refreshing your page</p>
+            </div>
+            <button type="submit" id="btn_logout">Logout</button>
+        </div>
+
+
+
+    <script>
+        const checkMail = getCookie("email");
+        if (checkMail  == "gic@gmail.com") {
+            document.getElementsByClassName("container_home")[0].style.visibility = 'visible';
+            document.getElementsByClassName("container")[0].style.visibility = 'hidden';
+        } else {
+            document.getElementsByClassName("container_home")[0].style.visibility = 'hidden';
+            document.getElementsByClassName("container")[0].style.visibility = 'visible';
+        }
+        document.getElementById("btn_login").addEventListener("click", function(event) {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            const em = email;
+
+
+            if (!email || !password) {
+                alert("OPP! Something wrong please check agian (-_-) ");
+            } else if (email == "gic@gmail.com" && password == "Gic123") {
+                setCookie(em);
+                document.getElementsByClassName("container_home")[0].style.visibility = 'visible';
+                document.getElementsByClassName("container")[0].style.visibility = 'hidden';
+            } else {
+                alert("OPP! Something wrong please check agian (-_-) ");
+            }
+        });
+        document.getElementById("btn_logout").addEventListener("click", function() {
+            document.cookie = "email=gic@gmail.com; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //remove cookie
+            document.getElementsByClassName("container_home")[0].style.visibility = 'hidden';
+            document.getElementsByClassName("container")[0].style.visibility = 'visible';
+        });
+        function setCookie(cname) {
+            var now = new Date();
+            var time = now.getTime();
+            var expireTime = time + 1000 * 30;
+            now.setTime(expireTime);
+            document.cookie = 'email=' + cname + ';expires=' + now.toUTCString() + ';path=/';
+
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+     
+        }
+    </script>
+</body>
+
+</html>
